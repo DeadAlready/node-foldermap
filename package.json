@@ -1,0 +1,21 @@
+{
+  "author": "Karl Düüna <dead.already@itdragons.com>",
+  "name": "foldermap",
+  "description": "Module for mapping folder structure to object",
+  "keywords": [
+    "folder",
+    "files",
+    "map"
+  ],
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:DeadAlready/node-foldermap"
+  },
+  "main": "lib/map.js",
+  "dependencies": {},
+  "optionalDependencies": {},
+  "engines": {
+    "node": ">=0.8.0"
+  }
+}
