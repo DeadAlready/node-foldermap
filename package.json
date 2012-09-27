@@ -14,6 +14,9 @@
   },
   "main": "lib/map.js",
   "dependencies": {},
+  "scripts":{
+    "test":"node test/test.js"
+  },
   "optionalDependencies": {},
   "engines": {
     "node": ">=0.8.0"
