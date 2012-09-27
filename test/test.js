@@ -2,7 +2,7 @@ var path = require('path');
 
 var mapper = require('../lib/map');
 
-var root = process.cwd() + path.sep;
+var root = process.cwd() + path.sep + 'test' + path.sep;
 
 var expected = {
   second:{
