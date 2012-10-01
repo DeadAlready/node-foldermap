@@ -7,13 +7,16 @@
     "files",
     "map"
   ],
-  "version": "0.0.6",
+  "version": "0.0.7",
   "repository": {
     "type": "git",
     "url": "git@github.com:DeadAlready/node-foldermap"
   },
   "main": "lib/map.js",
   "dependencies": {},
+  "devDependencies":{
+    "vows":"0.6.x"
+  },
   "scripts":{
     "test":"node test/test.js"
   },
