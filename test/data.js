@@ -7,6 +7,15 @@ var utils = require('./utils');
 var path = require('path');
 var root = process.cwd() + path.sep + 'test' + path.sep;
 
+function clone(o){
+  var c = {};
+  var h = Object.keys(o);
+  for(var i = 0, co = h.length; i < co; i++){
+    c[h[i]] = o[h[i]];
+  }
+  return c;
+}
+
 var testStructure = {
   _type:'directory',
   _ext:'',
@@ -43,38 +52,70 @@ var hello = {
   _content:'world'
 }
 
-var secondW = utils.enumerableClone(second);
+var third = {
+  _type:'directory',
+  _ext:'',
+  _name:'third',
+  _base:'third',
+  _path: root + 'testStructure' + path.sep + 'second' + path.sep + 'third',
+  _content: undefined
+}
+
+var hello2 = {
+  _type:'file',
+  _ext:'js',
+  _name:'hello.js',
+  _base:'hello',
+  _path: root + 'testStructure' + path.sep + 'second' + path.sep + 'third' + path.sep + 'hello.js',
+  _content:'world'
+}
+
+var secondW = clone(second);
 secondW['world.json'] = world;
 
-var expected = utils.enumerableClone(testStructure);
-expected.second = secondW;
-expected['hello.js'] = hello;
+var secondWN = clone(secondW);
 
-module.exports.expected = expected;
+var thirdW = clone(third);
+thirdW['hello.js'] = hello2;
 
-var expectedNoRecStar = utils.enumerableClone(testStructure);
-expectedNoRecStar.second = second;
-expectedNoRecStar['hello.js'] = hello;
+secondW.third = thirdW;
 
-module.exports.expectedNoRecStar = expectedNoRecStar;
+var e = clone(testStructure);
+e.second = secondW;
+e['hello.js'] = hello;
 
-module.exports.expectedNoRec = utils.enumerableClone(testStructure);
+module.exports.e = e;
 
-var expectedList = {
+var NoRecStar = clone(testStructure);
+NoRecStar.second = second;
+NoRecStar['hello.js'] = hello;
+
+module.exports.NoRecStar = NoRecStar;
+
+module.exports.NoRec = clone(testStructure);
+
+module.exports.List = {
   second: secondW,
   'hello.js':hello
-}
+};
 
-module.exports.expectedList = expectedList;
+module.exports.Object = {
+  sec: second,
+  hel:hello
+};
 
-var expectedObject = {
-  sec: secondW,
-  'hel':hello
-}
-
-module.exports.expectedObject = expectedObject;
-
-module.exports.expectedListNoRec = {
+module.exports.ListNoRec = {
   second:second,
   'hello.js':hello
 }
+
+var Json = clone(testStructure);
+Json.second = secondWN;
+module.exports.Json = Json;
+
+var Js = clone(testStructure);
+Js['hello.js'] = hello;
+Js.second = clone(second);
+Js.second.third = thirdW;
+
+module.exports.Js = Js;

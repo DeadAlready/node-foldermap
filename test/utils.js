@@ -4,7 +4,7 @@
 'use strict';
 
 // Will test own properties only
-module.exports.deepEqualWithDiff = function deepEqualWithDiff(a, e, names){
+module.exports.deepDiff = function deepEqualWithDiff(a, e, names){
   var dif = {};
   var aKeys = Object.keys(a);
   var eKeys = Object.keys(e);
@@ -79,7 +79,7 @@ module.exports.deepEqualWithDiff = function deepEqualWithDiff(a, e, names){
   return Object.keys(dif).length > 0 ? dif : true;
 }
 
-module.exports.enumerableClone = function enumerableClone(o){
+module.exports.eClone = function enumerableClone(o){
   var keys = Object.getOwnPropertyNames(o);
   var t = {};
   for(var i in keys){

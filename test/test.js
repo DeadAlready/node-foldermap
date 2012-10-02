@@ -2,7 +2,7 @@ var path = require('path');
 
 var mapper = require('../lib/map');
 var utils = require('./utils');
-var data = require('./data');
+var expected = require('./data');
 var vows = require('vows');
 var spec = require('vows/lib/vows/reporters/spec');
 var assert = require('assert');
@@ -10,117 +10,169 @@ var assert = require('assert');
 var root = process.cwd() + path.sep + 'test' + path.sep;
 
 vows.describe('Foldermap').addBatch({
-  'Map recursively':{
+  'Map string':{
     topic:function(){
       mapper.map(root + 'testStructure', this.callback);
     },
     'is correct':function(map){
-      assert.strictEqual(true, utils.deepEqualWithDiff(data.expected, utils.enumerableClone(map)));
-    }
-  }
-}).addBatch({
-  'Map non recursive':{
-    topic:function(){
-      mapper.map(root + 'testStructure', false, this.callback);
-    },
-    'is correct':function(map){
-      assert.strictEqual(true, utils.deepEqualWithDiff(data.expectedNoRec, utils.enumerableClone(map)));
-    }
-  }
-}).addBatch({
-  'Map nonrecursive wildcard':{
-    topic:function(){
-      mapper.map(root + 'testStructure' + path.sep + '*', false, this.callback);
-    },
-    'is correct':function(map){
-      assert.strictEqual(true, utils.deepEqualWithDiff(data.expectedNoRecStar, utils.enumerableClone(map)));
-    }
-  }
-}).addBatch({
-  'Map list':{
-    topic:function(){
-      mapper.map([root + 'testStructure' + path.sep + 'second',root + 'testStructure' + path.sep + 'hello.js'], this.callback);
-    },
-    'is correct':function(map){
-      assert.strictEqual(true, utils.deepEqualWithDiff(data.expectedList, utils.enumerableClone(map)));
-    }
-  }
-}).addBatch({
-  'Map list non rec':{
-    topic:function(){
-      mapper.map([root + 'testStructure' + path.sep + 'second',root + 'testStructure' + path.sep + 'hello.js'], false, this.callback);
-    },
-    'is correct':function(map){
-      assert.strictEqual(true, utils.deepEqualWithDiff(data.expectedListNoRec, utils.enumerableClone(map)));
+      assert.strictEqual(true, utils.deepDiff(utils.eClone(map), expected.e));
     }
   }
 }).addBatch({
   'Map object':{
     topic:function(){
-      mapper.map({
-        'sec':root + 'testStructure' + path.sep + 'second',
-        'hel':root + 'testStructure' + path.sep + 'hello.js'
-      }, this.callback);
+      mapper.map({path: root + 'testStructure'}, this.callback);
     },
     'is correct':function(map){
-      assert.strictEqual(true, utils.deepEqualWithDiff(data.expectedObject, utils.enumerableClone(map)));
+      assert.strictEqual(true, utils.deepDiff(utils.eClone(map), expected.e));
     }
   }
 }).addBatch({
-  'Map sync recursive':{
+  'Map nonrecursive':{
+    topic:function(){
+      mapper.map({path:root + 'testStructure',recursive:false}, this.callback);
+    },
+    'is correct':function(map){
+      assert.strictEqual(true, utils.deepDiff(utils.eClone(map), expected.NoRec));
+    }
+  }
+}).addBatch({
+  'Map non recursive list':{
+    topic:function(){
+      mapper.map([{
+          path:root + 'testStructure' + path.sep + 'second',
+          recursive:false
+        },{
+          path:root + 'testStructure' + path.sep + 'hello.js',
+          recursive:false
+        }], this.callback);
+    },
+    'is correct':function(map){
+      assert.strictEqual(true, utils.deepDiff(utils.eClone(map), expected.ListNoRec));
+    }
+  }
+}).addBatch({
+  'Map type json':{
+    topic:function(){
+      mapper.map({
+          path: root + 'testStructure',
+          type: 'json'
+        }, this.callback);
+    },
+    'is correct':function(map){
+      assert.strictEqual(true, utils.deepDiff(utils.eClone(map), expected.Json));
+    }
+  }
+}).addBatch({
+  'Map type js':{
+    topic:function(){
+      mapper.map({
+          path: root + 'testStructure',
+          type: 'js'
+        }, this.callback);
+    },
+    'is correct':function(map){
+      assert.strictEqual(true, utils.deepDiff(utils.eClone(map), expected.Js));
+    }
+  }
+}).addBatch({
+  'Map list with names':{
+    topic:function(){
+      mapper.map([{
+          path: root + 'testStructure' + path.sep + 'second',
+          recursive: false,
+          name:'sec'
+        },{
+          path: root + 'testStructure' + path.sep + 'hello.js',
+          recursive: false,
+          name:'hel'
+        }], this.callback);
+    },
+    'is correct':function(map){
+      assert.strictEqual(true, utils.deepDiff(utils.eClone(map), expected.Object));
+    }
+  }
+}).addBatch({
+  'Map sync string':{
     topic:function(){
       this.callback(null, mapper.mapSync(root + 'testStructure'));
     },
     'is correct':function(map){
-      assert.strictEqual(true, utils.deepEqualWithDiff(data.expected, utils.enumerableClone(map)));
+      assert.strictEqual(true, utils.deepDiff(utils.eClone(map), expected.e));
     }
   }
 }).addBatch({
-  'Map sync nonrecursive':{
+  'Map sync object':{
     topic:function(){
-      this.callback(null, mapper.mapSync(root + 'testStructure', false));
+      this.callback(null, mapper.mapSync({path:root + 'testStructure'}));
     },
     'is correct':function(map){
-      assert.strictEqual(true, utils.deepEqualWithDiff(data.expectedNoRec, utils.enumerableClone(map)));
+      assert.strictEqual(true, utils.deepDiff(utils.eClone(map), expected.e));
     }
   }
 }).addBatch({
-  'Map sync nonrecursive wildcard':{
+  'Map sync object non recursive':{
     topic:function(){
-      this.callback(null, mapper.mapSync(root + 'testStructure' + path.sep + '*', false));
+      this.callback(null, mapper.mapSync({path:root + 'testStructure', recursive:false}));
     },
     'is correct':function(map){
-      assert.strictEqual(true, utils.deepEqualWithDiff(data.expectedNoRecStar, utils.enumerableClone(map)));
+      assert.strictEqual(true, utils.deepDiff(utils.eClone(map), expected.NoRec));
     }
   }
 }).addBatch({
-  'Map list sync':{
+  'Map sync non recursive list':{
     topic:function(){
-      this.callback(null, mapper.mapSync([root + 'testStructure' + path.sep + 'second',root + 'testStructure' + path.sep + 'hello.js']));
+      this.callback(null, mapper.mapSync([{
+          path:root + 'testStructure' + path.sep + 'second',
+          recursive:false
+        },{
+          path:root + 'testStructure' + path.sep + 'hello.js',
+          recursive:false
+        }]));
     },
     'is correct':function(map){
-      assert.strictEqual(true, utils.deepEqualWithDiff(data.expectedList, utils.enumerableClone(map)));
+      assert.strictEqual(true, utils.deepDiff(utils.eClone(map), expected.ListNoRec));
     }
   }
 }).addBatch({
-  'Map list sync non recursive':{
-    topic:function(){
-      this.callback(null, mapper.mapSync([root + 'testStructure' + path.sep + 'second',root + 'testStructure' + path.sep + 'hello.js'], false));
-    },
-    'is correct':function(map){
-      assert.strictEqual(true, utils.deepEqualWithDiff(data.expectedListNoRec, utils.enumerableClone(map)));
-    }
-  }
-}).addBatch({
-  'Map object sync':{
+  'Map sync type json':{
     topic:function(){
       this.callback(null, mapper.mapSync({
-        'sec':root + 'testStructure' + path.sep + 'second',
-        'hel':root + 'testStructure' + path.sep + 'hello.js'
-      }));
+          path: root + 'testStructure',
+          type: 'json'
+        }));
     },
     'is correct':function(map){
-      assert.strictEqual(true, utils.deepEqualWithDiff(data.expectedObject, utils.enumerableClone(map)));
+      assert.strictEqual(true, utils.deepDiff(utils.eClone(map), expected.Json));
+    }
+  }
+}).addBatch({
+  'Map sync type js':{
+    topic:function(){
+      this.callback(null, mapper.mapSync({
+          path: root + 'testStructure',
+          type: 'js'
+        }));
+    },
+    'is correct':function(map){
+      assert.strictEqual(true, utils.deepDiff(utils.eClone(map), expected.Js));
+    }
+  }
+}).addBatch({
+  'Map sync list with names':{
+    topic:function(){
+      this.callback(null, mapper.mapSync([{
+          path: root + 'testStructure' + path.sep + 'second',
+          recursive: false,
+          name:'sec'
+        },{
+          path: root + 'testStructure' + path.sep + 'hello.js',
+          recursive: false,
+          name:'hel'
+        }]));
+    },
+    'is correct':function(map){
+      assert.strictEqual(true, utils.deepDiff(utils.eClone(map), expected.Object));
     }
   }
 }).run({reporter:spec});

@@ -1,5 +1,5 @@
 {
-  "author": "Karl Düüna <dead.already@itdragons.com>",
+  "author": "Karl Düüna <karl.dyyna@gmail.com>",
   "name": "foldermap",
   "description": "Module for mapping folder structure to object",
   "keywords": [
@@ -7,7 +7,7 @@
     "files",
     "map"
   ],
-  "version": "0.0.8",
+  "version": "0.1.0",
   "repository": {
     "type": "git",
     "url": "git@github.com:DeadAlready/node-foldermap"
