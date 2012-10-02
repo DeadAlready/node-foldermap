@@ -1,4 +1,4 @@
-[foldermap](https://github.com/DeadAlready/node-easy-config) is a simple folder mapper for node.
+[foldermap](https://github.com/DeadAlready/node-foldermap) is a simple folder mapper for node.
 
 # Installation
 
@@ -38,6 +38,19 @@ Instead of path string you can also pass in an object or an array of objects wit
 * match - regular expression string to match filename against
 * recursive - whether to traverse folders recursively, defaults to true
 * name - the name used for the property if file is in a list
+
+### Example
+
+    var map = require('foldermap').mapSync([{
+      path:'./testFolder',
+      recursive: false,
+      type: 'json'
+    },{
+      path:'./testFolder2',
+      recursive: false,
+      type: 'json',
+      name: 'test2'
+    }]);
 
 ## License
 
