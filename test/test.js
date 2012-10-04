@@ -6,6 +6,9 @@ var expected = require('./data');
 var vows = require('vows');
 var spec = require('vows/lib/vows/reporters/spec');
 var assert = require('assert');
+var fs = require('fs');
+var backup;
+var Map;
 
 var root = process.cwd() + path.sep + 'test' + path.sep;
 
@@ -15,17 +18,49 @@ vows.describe('Foldermap').addBatch({
       mapper.map(root + 'testStructure', this.callback);
     },
     'is correct':function(map){
+      Map = map;
       assert.strictEqual(true, utils.deepDiff(utils.eClone(map), expected.e));
     },
-    'readStream':function(map){
-      var rs = map['hello.js']._contentS;
+    'content setter':function(map){
+      var tmp = map['hello.js']._content;
+      map['hello.js']._content = 'Whatup';
+      assert.strictEqual(fs.readFileSync(map['hello.js']._path,'utf8'), 'Whatup');
+      map['hello.js']._content = tmp;
+    }
+  }
+}).addBatch({
+  'readStream':{
+    topic:function(){
+      var map = Map;
+      var cb = this.callback;
+      var rs = map['hello.js']._read;
       var tmp = '';
       rs.on('data',function(d){
         tmp += d.toString('utf8');
       });
       rs.on('end',function(){
-        assert.strictEqual(map['hello.js']._content, tmp);
+        cb(null, map, tmp);
       });
+    },
+    'is correct':function(err,map, tmp){
+      assert.strictEqual(map['hello.js']._content, tmp);
+    }
+  }
+}).addBatch({
+  'writeStream':{
+    topic:function(){
+      var map = Map;
+      var cb = this.callback;
+      var back = map['hello.js']._content;
+      var ws = map['hello.js']._write;
+      ws.end('Whatup','utf8');
+      ws.on('close',function(){
+        cb(null, map, back);
+      });
+    },
+    'is correct':function(err, map, back){
+      assert.strictEqual(map['hello.js']._content, 'Whatup');
+      map['hello.js']._content = back;
     }
   }
 }).addBatch({
@@ -111,7 +146,7 @@ vows.describe('Foldermap').addBatch({
       assert.strictEqual(true, utils.deepDiff(utils.eClone(map), expected.e));
     },
     'readStream':function(map){
-      var rs = map['hello.js']._contentS;
+      var rs = map['hello.js']._read;
       var tmp = '';
       rs.on('data',function(d){
         tmp += d.toString('utf8');

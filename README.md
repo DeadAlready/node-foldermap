@@ -14,7 +14,11 @@ foldermap traverses the folders in a given path and maps them into objects with 
       _ext:  //Extension
       _type: //'file' or 'directory'
       _path: //Full path to the file
-      _content: //Handle to access file content or undefined in case of directory
+
+      // The next properties are only assigned for files
+      _content: //Handle to access file content. Uses fs.readFileSync and fs.writeFileSync
+      _read: //Handle for accessing readStream object
+      _write: //Handle for accessing writeSream object
     }
 
 Those properties are not enumerable. For directories the files are added as enumerable properties
