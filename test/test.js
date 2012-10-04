@@ -16,6 +16,16 @@ vows.describe('Foldermap').addBatch({
     },
     'is correct':function(map){
       assert.strictEqual(true, utils.deepDiff(utils.eClone(map), expected.e));
+    },
+    'readStream':function(map){
+      var rs = map['hello.js']._contentS;
+      var tmp = '';
+      rs.on('data',function(d){
+        tmp += d.toString('utf8');
+      });
+      rs.on('end',function(){
+        assert.strictEqual(map['hello.js']._content, tmp);
+      });
     }
   }
 }).addBatch({
@@ -99,6 +109,16 @@ vows.describe('Foldermap').addBatch({
     },
     'is correct':function(map){
       assert.strictEqual(true, utils.deepDiff(utils.eClone(map), expected.e));
+    },
+    'readStream':function(map){
+      var rs = map['hello.js']._contentS;
+      var tmp = '';
+      rs.on('data',function(d){
+        tmp += d.toString('utf8');
+      });
+      rs.on('end',function(){
+        assert.strictEqual(map['hello.js']._content, tmp);
+      });
     }
   }
 }).addBatch({

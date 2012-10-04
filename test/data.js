@@ -21,8 +21,7 @@ var testStructure = {
   _ext:'',
   _name:'testStructure',
   _base:'testStructure',
-  _path: root + 'testStructure',
-  _content: undefined
+  _path: root + 'testStructure'
 }
 
 var second = {
@@ -30,8 +29,7 @@ var second = {
   _ext:'',
   _name:'second',
   _base:'second',
-  _path: root + 'testStructure' + path.sep + 'second',
-  _content: undefined
+  _path: root + 'testStructure' + path.sep + 'second'
 }
 
 var world = {
@@ -57,8 +55,7 @@ var third = {
   _ext:'',
   _name:'third',
   _base:'third',
-  _path: root + 'testStructure' + path.sep + 'second' + path.sep + 'third',
-  _content: undefined
+  _path: root + 'testStructure' + path.sep + 'second' + path.sep + 'third'
 }
 
 var hello2 = {
