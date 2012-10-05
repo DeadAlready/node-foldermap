@@ -83,7 +83,7 @@ module.exports.eClone = function enumerableClone(o){
   var keys = Object.getOwnPropertyNames(o);
   var t = {};
   for(var i in keys){
-    if(keys[i] !== '_read' && keys[i] !== '_write'){
+    if(!~['_read','_write','_delete','_add'].indexOf(keys[i]) && keys[i].indexOf('__') !== 0){
       if(typeof o[keys[i]] === 'object' && o[keys[i]].length === undefined ){
         t[keys[i]] = enumerableClone(o[keys[i]]);
         continue;

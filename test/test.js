@@ -33,7 +33,7 @@ vows.describe('Foldermap').addBatch({
     topic:function(){
       var map = Map;
       var cb = this.callback;
-      var rs = map['hello.js']._read;
+      var rs = map['hello.js']._read();
       var tmp = '';
       rs.on('data',function(d){
         tmp += d.toString('utf8');
@@ -52,7 +52,7 @@ vows.describe('Foldermap').addBatch({
       var map = Map;
       var cb = this.callback;
       var back = map['hello.js']._content;
-      var ws = map['hello.js']._write;
+      var ws = map['hello.js']._write();
       ws.end('Whatup','utf8');
       ws.on('close',function(){
         cb(null, map, back);
@@ -146,7 +146,7 @@ vows.describe('Foldermap').addBatch({
       assert.strictEqual(true, utils.deepDiff(utils.eClone(map), expected.e));
     },
     'readStream':function(map){
-      var rs = map['hello.js']._read;
+      var rs = map['hello.js']._read();
       var tmp = '';
       rs.on('data',function(d){
         tmp += d.toString('utf8');
