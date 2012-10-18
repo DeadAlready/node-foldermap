@@ -212,8 +212,8 @@ As an object the filePath supports the .path and .type properties, where .type c
 + content: optional //The contents of the file added. - This parameter has no effect when adding a directory.
 + callback: optional //Callback to invoke with the results. - Will determine if function runs sync or async
 
+Examples
 
-    // Examples
     // Calling with content will return the handle to the newly created file object
     var hello = map.folder._add('test.txt','Hello');
     // or
