@@ -126,6 +126,9 @@ read asynchronously and returned to the callback.
 If no callback is provided then a readstream object is returned
 
     var stream = map.file._read();
+    stream.on('data',function(data){
+      //Here we get data
+    });
 
 ### _write()
 
@@ -149,6 +152,7 @@ If the callback is also provided then the file write will occur async. In async 
 If no arguments are provided then a writeStream object is returned.
 
     var stream = map.file._write();
+    stream.write('Hello');
 
 ### _delete()
 
@@ -197,18 +201,17 @@ Examples
 
 ### _add()
 
-The _add function exist only on folders and can be used to add files or folders to the directory structure. 
+The _add function exists only on folders and can be used to add files or folders to the directory structure. 
 The added files and folders are automatically mapped and added to the object.
 
 The _add function has the following arguments
 
-+ filePath: required //String or object determining the add path and type.
-++ If filePath is string then the file type is file
-++ As an object the filePath supports the .path and .type properties, where .type can be 'directory' or 'file'
-+ content: optional //The contents of the file added.
-++ this parameter has no effect when adding a directory.
-+ callback: optional //Callback to invoke with the results.
-++ Will determine if function runs sync or async
++ filePath: required //String or object determining the add path and type. - 
+If filePath is string then the file type is file. 
+As an object the filePath supports the .path and .type properties, where .type can be 'directory' or 'file'
++ content: optional //The contents of the file added. - This parameter has no effect when adding a directory.
++ callback: optional //Callback to invoke with the results. - Will determine if function runs sync or async
+
 
     // Examples
     // Calling with content will return the handle to the newly created file object
