@@ -14,7 +14,8 @@
   },
   "main": "lib/map.js",
   "dependencies": {
-    "mkdirp":"0.3.x"
+    "mkdirp":"0.3.x",
+    "rimraf":"2.0.x"
   },
   "devDependencies":{
     "vows":"0.6.x"
