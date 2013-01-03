@@ -22,7 +22,7 @@ var testStructure = {
   _name:'testStructure',
   _base:'testStructure',
   _path: root + 'testStructure'
-}
+};
 
 var second = {
   _type:'directory',
@@ -30,7 +30,7 @@ var second = {
   _name:'second',
   _base:'second',
   _path: root + 'testStructure' + path.sep + 'second'
-}
+};
 
 var world = {
   _type:'file',
@@ -39,7 +39,7 @@ var world = {
   _base:'world',
   _path: root + 'testStructure' + path.sep + 'second' + path.sep + 'world.json',
   _content:'{"my":"World"}'
-}
+};
 
 var hello = {
   _type:'file',
@@ -48,7 +48,7 @@ var hello = {
   _base:'hello',
   _path: root + 'testStructure' + path.sep + 'hello.js',
   _content:'world'
-}
+};
 
 var third = {
   _type:'directory',
@@ -56,7 +56,7 @@ var third = {
   _name:'third',
   _base:'third',
   _path: root + 'testStructure' + path.sep + 'second' + path.sep + 'third'
-}
+};
 
 var hello2 = {
   _type:'file',
@@ -65,7 +65,32 @@ var hello2 = {
   _base:'hello',
   _path: root + 'testStructure' + path.sep + 'second' + path.sep + 'third' + path.sep + 'hello.js',
   _content:'world'
-}
+};
+
+var secondTest = {
+  _type:'directory',
+  _ext:'',
+  _name:'secondTest',
+  _base:'secondTest',
+  _path: root + 'secondTest'
+};
+
+var world2 = {
+  _type:'file',
+  _ext:'json',
+  _name:'world.json',
+  _base:'world',
+  _path: root + 'secondTest' + path.sep + 'world.json',
+  _content:'{"my":"World"}'
+};
+
+var test = {
+  _type:'directory',
+  _ext:'',
+  _name:'.test',
+  _base:'.test',
+  _path: root + 'secondTest' + path.sep + '.test'
+};
 
 var secondW = clone(second);
 secondW['world.json'] = world;
@@ -104,7 +129,7 @@ module.exports.Object = {
 module.exports.ListNoRec = {
   second:second,
   'hello.js':hello
-}
+};
 
 var Json = clone(testStructure);
 Json.second = secondWN;
@@ -116,3 +141,6 @@ Js.second = clone(second);
 Js.second.third = thirdW;
 
 module.exports.Js = Js;
+
+module.exports.secondTest = secondTest;
+secondTest['world.json'] = world2;

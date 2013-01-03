@@ -230,4 +230,16 @@ vows.describe('Foldermap').addBatch({
       assert.strictEqual(true, utils.deepDiff(utils.eClone(map), expected.Object));
     }
   }
+}).addBatch({
+  'Map type json with .folder':{
+    topic:function(){
+      mapper.map({
+          path: root + 'secondTest',
+          type: 'json'
+        }, this.callback);
+    },
+    'is correct':function(map){
+      assert.strictEqual(true, utils.deepDiff(utils.eClone(map), expected.secondTest));
+    }
+  }
 }).run({reporter:spec});
