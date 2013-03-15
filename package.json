@@ -14,12 +14,11 @@
   },
   "main": "lib/map.js",
   "dependencies": {
-    "file-pointer":">=0.0.3"
+    "file-pointer":">=0.0.4"
   },
   "devDependencies":{
   },
   "scripts":{
-    "test":"node test/test.js"
   },
   "optionalDependencies": {},
   "engines": {

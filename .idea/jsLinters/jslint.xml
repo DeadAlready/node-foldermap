@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JSLintConfiguration">
+    <option continue="true" />
+    <option es5="true" />
+    <option indent="4" />
+    <option maxerr="50" />
+    <option node="true" />
+    <option nomen="true" />
+    <option plusplus="true" />
+    <option undef="true" />
+    <option vars="true" />
+  </component>
+</project>
+
