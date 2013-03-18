@@ -14,7 +14,7 @@
   },
   "main": "lib/map.js",
   "dependencies": {
-    "file-pointer":">=0.0.4"
+    "file-pointer":">=0.0.6"
   },
   "devDependencies":{
   },
