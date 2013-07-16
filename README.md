@@ -18,7 +18,8 @@ by assigning a few extra properties to file pointers and providing a map functio
 		__map: function (opts, callback) // provides the map function with current file being root
 		__clear: function () // removes file and directory keys from the object
 		__reMap: function (callback) // clears the map from files and folders and runs __map
-		__reMap: function ([persistent], callback) // watches for changes in folder and runs __reMap
+		__watchMap: function ([persistent], callback) // watches for changes in folder and runs __reMap
+		__filter: function (opts, [returnArray]) // filters the maps keys according to opts, returnArray can be boolean or 'keys' and will make the function return an array instead of an object
 
 Like [file-pointer](https://github.com/DeadAlready/node-file-pointer) native properties, these are not enumerable.
 For directories the files are added as enumerable properties
@@ -38,7 +39,7 @@ Instead of path string you can also pass in an object or an array of objects wit
 
 * path - required, the string path of file
 * ext - limit the files to have a specific extension
-* type - ['file','folder'] - limit the subfiles to either type
+* type - ['file','directory'] - limit the subfiles to either type
 * match - regular expression string to match filename against
 * recursive - whether to traverse folders recursively, defaults to true
 * relative - true or string, files are added to folder with relative paths
