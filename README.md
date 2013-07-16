@@ -16,6 +16,9 @@ by assigning a few extra properties to file pointers and providing a map functio
 		_folders: [] // lists only subfiles that are of type folder
 
 		__map: function (opts, callback) // provides the map function with current file being root
+		__clear: function () // removes file and directory keys from the object
+		__reMap: function (callback) // clears the map from files and folders and runs __map
+		__reMap: function ([persistent], callback) // watches for changes in folder and runs __reMap
 
 Like [file-pointer](https://github.com/DeadAlready/node-file-pointer) native properties, these are not enumerable.
 For directories the files are added as enumerable properties
