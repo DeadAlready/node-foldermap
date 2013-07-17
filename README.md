@@ -43,6 +43,7 @@ Instead of path string you can also pass in an object or an array of objects wit
 * match - regular expression string to match filename against
 * recursive - whether to traverse folders recursively, defaults to true
 * relative - true or string, files are added to folder with relative paths
+* simple - boolean -> if true subfolders and files are not added to the main map
 
 ### Example
 
