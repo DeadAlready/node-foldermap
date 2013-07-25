@@ -7,7 +7,7 @@
     "files",
     "map"
   ],
-  "version": "0.3.9",
+  "version": "0.3.10",
   "repository": {
     "type": "git",
     "url": "git@github.com:DeadAlready/node-foldermap"

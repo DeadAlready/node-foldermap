@@ -20,6 +20,7 @@ by assigning a few extra properties to file pointers and providing a map functio
 		__reMap: function (callback) // clears the map from files and folders and runs __map
 		__watchMap: function ([persistent], callback) // watches for changes in folder and runs __reMap
 		__filter: function (opts, [returnArray]) // filters the maps keys according to opts, returnArray can be boolean or 'keys' and will make the function return an array instead of an object
+		__extend: extend the map with another object -> keys from the other object will be transferred
 
 Like [file-pointer](https://github.com/DeadAlready/node-file-pointer) native properties, these are not enumerable.
 For directories the files are added as enumerable properties
@@ -44,6 +45,7 @@ Instead of path string you can also pass in an object or an array of objects wit
 * recursive - whether to traverse folders recursively, defaults to true
 * relative - true or string, files are added to folder with relative paths
 * simple - boolean or nr -> if true subfolders and files are not added to the main map, if numeric simple method will be used for the first x levels
+* extend - object used to extend files or folders -> used to add custom properties. Will not extend the original map.
 
 ### Example
 
